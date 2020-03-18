@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class water_collision : MonoBehaviour
 {
-    public int numOfCollisions = 0;
-    public GameObject collisionTarget;
+    public GameObject playerObj;
+    private ParticleSystem particleSystem;
     // Start is called before the first frame update
     void Start()
     {
+        particleSystem = GetComponent<ParticleSystem>();
         
     }
 
@@ -18,11 +19,11 @@ public class water_collision : MonoBehaviour
         
     }
 
-    void OnParticleCollision(GameObject obj) {
-        if(obj.Equals(collisionTarget)) numOfCollisions++;
-        Debug.Log("Colisions: "+numOfCollisions);
-        player_controller player = obj.GetComponentInParent<player_controller>();
-        player.onCollisionByWater();
-
+    void OnParticleTrigger() {
+        List<ParticleSystem.Particle> enteredParticles = new List<ParticleSystem.Particle>();
+        int numOfEnter = particleSystem.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enteredParticles);
+        player_controller player = playerObj.GetComponent<player_controller>();
+        Debug.Log("Entered " + numOfEnter + " milk particles.");
+        player.addMilkParticles(numOfEnter);
     }
 }
