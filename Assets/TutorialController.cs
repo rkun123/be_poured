@@ -8,6 +8,7 @@ public class TutorialController : MonoBehaviour
     private int step = 0;
     public GameObject milkTutorial;
     public GameObject mugTutorial;
+    public GameObject gameTutorial;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,22 +18,24 @@ public class TutorialController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Input.GetKeyDown(KeyCode.Space));
         Debug.Log("Step " + step);
         switch(step) {
             case 0:
                 mugTutorial.SetActive(false);
                 milkTutorial.SetActive(true);
+                gameTutorial.SetActive(false);
                 checkMilkTutorialFinished();
                 break;
             case 1:
                 mugTutorial.SetActive(true);
                 milkTutorial.SetActive(false);
+                gameTutorial.SetActive(false);
                 checkMugTutorialFinished();
                 break;
             case 2:
                 mugTutorial.SetActive(false);
                 milkTutorial.SetActive(false);
+                gameTutorial.SetActive(true);
                 checkGameTutorialFinished();
                 break;
             
